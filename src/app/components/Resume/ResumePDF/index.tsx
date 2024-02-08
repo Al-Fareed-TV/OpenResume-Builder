@@ -1,4 +1,4 @@
-import { Page, View, Document } from "@react-pdf/renderer";
+import { Page, View, Document, PDFViewer } from "@react-pdf/renderer";
 import { styles, spacing } from "components/Resume/ResumePDF/styles";
 import { ResumePDFProfile } from "components/Resume/ResumePDF/ResumePDFProfile";
 import { ResumePDFWorkExperience } from "components/Resume/ResumePDF/ResumePDFWorkExperience";
@@ -10,7 +10,11 @@ import { DEFAULT_FONT_COLOR } from "lib/redux/settingsSlice";
 import type { Settings, ShowForm } from "lib/redux/settingsSlice";
 import type { Resume } from "lib/redux/types";
 import { SuppressResumePDFErrorMessage } from "components/Resume/ResumePDF/common/SuppressResumePDFErrorMessage";
-
+import { HeaderTV } from "./HeaderTV";
+import { Footer } from "./Footer";
+// import { ResumePDFText } from "./common";
+// import Image from "next/image";
+// import Logo from "public/assets/TVLogo.png"
 /**
  * Note: ResumePDF is supposed to be rendered inside PDFViewer. However,
  * PDFViewer is rendered too slow and has noticeable delay as you enter
@@ -119,6 +123,9 @@ export const ResumePDF = ({
               padding: `${spacing[0]} ${spacing[20]}`,
             }}
           >
+            
+            
+            <HeaderTV/>
             <ResumePDFProfile
               profile={profile}
               themeColor={themeColor}
@@ -128,6 +135,7 @@ export const ResumePDF = ({
               const Component = formTypeToComponent[form];
               return <Component key={form} />;
             })}
+            <Footer themeColor={themeColor}/>
           </View>
         </Page>
       </Document>

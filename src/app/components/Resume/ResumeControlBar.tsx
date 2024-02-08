@@ -7,6 +7,8 @@ import {
 } from "@heroicons/react/24/outline";
 import { usePDF } from "@react-pdf/renderer";
 import dynamic from "next/dynamic";
+import {loadStateFromLocalStorage} from 'lib/redux/local-storage'
+import { connected } from "process";
 
 const ResumeControlBar = ({
   scale,
@@ -33,6 +35,18 @@ const ResumeControlBar = ({
     update();
   }, [update, document]);
 
+  const downloadJSONFile = () => {
+    const jsonData = loadStateFromLocalStorage();
+  
+    const keysToRemove = ['settings', '', ''];
+
+    const filteredObject = Object.fromEntries(
+      Object.entries(jsonData).filter(([key]) => !keysToRemove.includes(key))
+    );
+    const userProfile = JSON.stringify(filteredObject, null, 2);
+    console.log("User profile \n", userProfile);
+  };
+  
   return (
     <div className="sticky bottom-0 left-0 right-0 flex h-[var(--resume-control-bar-height)] items-center justify-center px-[var(--resume-padding)] text-gray-600 lg:justify-between">
       <div className="flex items-center gap-2">
@@ -63,6 +77,7 @@ const ResumeControlBar = ({
         className="ml-1 flex items-center gap-1 rounded-md border border-gray-300 px-3 py-0.5 hover:bg-gray-100 lg:ml-8"
         href={instance.url!}
         download={fileName}
+        onClick={downloadJSONFile}
       >
         <ArrowDownTrayIcon className="h-4 w-4" />
         <span className="whitespace-nowrap">Download Resume</span>

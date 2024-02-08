@@ -3,6 +3,7 @@ import type { Style } from "@react-pdf/types";
 import { styles, spacing } from "components/Resume/ResumePDF/styles";
 import { DEBUG_RESUME_PDF_FLAG } from "lib/constants";
 import { DEFAULT_FONT_COLOR } from "lib/redux/settingsSlice";
+import Image from "next/image";
 
 export const ResumePDFSection = ({
   themeColor,
@@ -74,6 +75,22 @@ export const ResumePDFText = ({
       {children}
     </Text>
   );
+};
+
+export const ResumeImage = ({
+  imgPath,
+  imgAlt,
+  imgHeight,
+  imgWidth
+}:{
+  imgPath:any
+  imgAlt:string,
+  imgHeight:number,
+  imgWidth:number
+})=>{
+return
+  <Image src={imgPath} height={imgHeight} width={imgWidth} alt={imgAlt}/>
+
 };
 
 export const ResumePDFBulletList = ({
